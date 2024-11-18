@@ -1,7 +1,12 @@
-# Tauri + React + Typescript
+## Description
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+A prototype application built in `react` and packaged by `tauri` to give a more streamlined judging experience to BP style debates
+the app is built in hebrew
 
-## Recommended IDE Setup
+## plugins
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+the app uses the `fs` plugin to generate a `db.json` file in the data directory upon first init and edit the file as needed (e.g. adding new debates, updating speeches etc.)
+
+# features
+
+the app preserves newline characters and formats text such that text between `*` is bolded and red and text between `$` is bolded and blue
