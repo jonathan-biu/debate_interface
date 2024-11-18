@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap");
+* {
+  font-family: "Heebo", sans-serif; /* Apply Heebo font to the body */
+}
+.main-content {
+  padding-top: 4rem; /* Adjust this value as needed based on the height of your navbar */
+}
