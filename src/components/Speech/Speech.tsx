@@ -152,7 +152,7 @@ const Speech = () => {
 
       // Navigate after successful update
       if (speaker === "OW") {
-        navigate("/");
+        navigate(`/Home/${id}`);
       } else {
         navigateToNextSpeaker(speaker, id);
       }

@@ -3,6 +3,7 @@ import "./Home.css";
 import { Debate } from "../../functions/types";
 import { readTextFile, exists, mkdir, writeFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
+import { useParams } from "react-router-dom";
 // import { useElectronAPI } from "../../hooks/useElectronAPI"; // Adjust the path if needed
 
 const formatText = (text: string) => {
@@ -67,8 +68,12 @@ const DebateGroup: React.FC<DebateGroupProps> = ({ title, speakers }) => (
 );
 
 const Home = () => {
+  const param_id = useParams().id;
+
   const [motions, setMotions] = useState<Debate[]>([]);
-  const [selectedMotionId, setSelectedMotionId] = useState<string | null>(null);
+  const [selectedMotionId, setSelectedMotionId] = useState<
+    string | null | undefined
+  >(param_id);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
