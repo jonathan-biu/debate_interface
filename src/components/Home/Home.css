@@ -1,7 +1,3 @@
-body {
-  direction: rtl; /* Set the entire body to RTL */
-}
-
 .container {
   display: flex;
   justify-content: space-between; /* Space between the left and right columns */

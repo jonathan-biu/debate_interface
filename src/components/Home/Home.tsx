@@ -4,6 +4,7 @@ import { Debate } from "../../functions/types";
 import { readTextFile, exists, mkdir, writeFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
 import { useParams } from "react-router-dom";
+import { t } from "i18next";
 // import { useElectronAPI } from "../../hooks/useElectronAPI"; // Adjust the path if needed
 
 const formatText = (text: string) => {
@@ -45,29 +46,29 @@ interface DebateGroupProps {
   speakers: any[];
 }
 
-const DebateGroup: React.FC<DebateGroupProps> = ({ title, speakers }) => (
-  <div className="group">
-    <h2>{title}</h2>
-    {speakers.map((speaker, index) => (
-      <div key={index}>
-        <h2>{speaker.title}</h2>
-        <h3>טיעוני {speaker.title}:</h3>
-        <p>{formatText(speaker.speech)}</p>
-        {speaker.rebuttal && (
-          <>
-            <h3>ריבטל {speaker.title}:</h3>
-            <p>{formatText(speaker.rebuttal)}</p>
-          </>
-        )}
-
-        <h3>POI:</h3>
-        <p>{formatText(speaker.POI)}</p>
-      </div>
-    ))}
-  </div>
-);
-
 const Home = () => {
+  const DebateGroup: React.FC<DebateGroupProps> = ({ title, speakers }) => (
+    <div className="group">
+      <h2>{title}</h2>
+      {speakers.map((speaker, index) => (
+        <div key={index}>
+          <h2>{speaker.title}</h2>
+          <h3>{t("Home.speech", { title: speaker.title })}</h3>
+          <p>{formatText(speaker.speech)}</p>
+          {speaker.rebuttal && (
+            <>
+              <h3>{t("Home.rebuttal", { title: speaker.title })}</h3>
+              <p>{formatText(speaker.rebuttal)}</p>
+            </>
+          )}
+
+          <h3>{t("Home.POI", { title: speaker.title })}</h3>
+          <p>{formatText(speaker.POI)}</p>
+        </div>
+      ))}
+    </div>
+  );
+
   const param_id = useParams().id;
 
   const [motions, setMotions] = useState<Debate[]>([]);
@@ -244,6 +245,7 @@ const Home = () => {
       console.error("Error deleting motion:", error);
     }
   };
+  const [MotionTitle, ChangeTitle] = useState(String);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -254,13 +256,18 @@ const Home = () => {
 
   return (
     <div>
-      <h1>בחר/י מושן</h1>
+      <h1>{MotionTitle != "" ? MotionTitle : t("Home.select_motion")}</h1>
       <select
-        onChange={(e) => setSelectedMotionId(e.target.value)}
+        onChange={(e) => {
+          const selectedOptionText =
+            e.target.options[e.target.selectedIndex].text;
+          setSelectedMotionId(e.target.value);
+          ChangeTitle(selectedOptionText);
+        }}
         value={selectedMotionId || ""}
       >
         <option value="" disabled>
-          בחר/י מושן
+          {t("Home.select_motion")}
         </option>
         {motions.map((motion) => (
           <option key={motion.id} value={motion.id}>
@@ -271,7 +278,7 @@ const Home = () => {
       {selectedMotionId && (
         <div>
           <button onClick={() => handleDeleteMotion(selectedMotionId)}>
-            מחק/י מושן
+            {t("Home.delete_motion")}
           </button>
         </div>
       )}
@@ -279,15 +286,15 @@ const Home = () => {
         <div className="container">
           <div className="column">
             <DebateGroup
-              title="ממשלה ראשונה"
+              title={t("Home.OG")}
               speakers={[
                 {
-                  title: 'רוה"מ',
+                  title: `${t("Home.PM")}`,
                   speech: selectedMotion.PM?.speech,
                   POI: selectedMotion.PM?.POI,
                 },
                 {
-                  title: 'סגן רוה"מ',
+                  title: `${t("Home.DPM")}`,
                   speech: selectedMotion.DPM?.speech,
                   POI: selectedMotion.DPM?.POI,
                   rebuttal: selectedMotion.DPM?.rebuttal,
@@ -295,16 +302,16 @@ const Home = () => {
               ]}
             />
             <DebateGroup
-              title="ממשלה שנייה"
+              title={t("Home.CG")}
               speakers={[
                 {
-                  title: "מרחיב ממשלה",
+                  title: `${t("Home.MG")}`,
                   speech: selectedMotion.MG?.speech,
                   POI: selectedMotion.MG?.POI,
                   rebuttal: selectedMotion.MG?.rebuttal,
                 },
                 {
-                  title: "מסכם ממשלה",
+                  title: `${t("Home.GW")}`,
                   speech: selectedMotion.GW?.speech,
                   rebuttal: selectedMotion.GW?.rebuttal,
                   POI: selectedMotion.GW?.POI,
@@ -315,16 +322,16 @@ const Home = () => {
 
           <div className="column">
             <DebateGroup
-              title="אופוזיציה ראשונה"
+              title={t("Home.OO")}
               speakers={[
                 {
-                  title: 'יו"ר האופוזיציה',
+                  title: `${t("Home.LO")}`,
                   speech: selectedMotion.LO?.speech,
                   rebuttal: selectedMotion.LO?.rebuttal,
                   POI: selectedMotion.LO?.POI,
                 },
                 {
-                  title: 'סגן יו"ר האופוזיציה',
+                  title: `${t("Home.DLO")}`,
                   speech: selectedMotion.DLO?.speech,
                   rebuttal: selectedMotion.DLO?.rebuttal,
                   POI: selectedMotion.DLO?.POI,
@@ -332,16 +339,16 @@ const Home = () => {
               ]}
             />
             <DebateGroup
-              title="אופוזיציה שנייה"
+              title={t("Home.CO")}
               speakers={[
                 {
-                  title: "מרחיב אופוזיציה",
+                  title: `${t("Home.MO")}`,
                   speech: selectedMotion.MO?.speech,
                   rebuttal: selectedMotion.MO?.rebuttal,
                   POI: selectedMotion.MO?.POI,
                 },
                 {
-                  title: "מסכם אופוזיציה",
+                  title: `${t("Home.OW")}`,
                   speech: selectedMotion.OW?.speech,
                   rebuttal: selectedMotion.OW?.rebuttal,
                   POI: selectedMotion.OW?.POI,

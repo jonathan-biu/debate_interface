@@ -1,10 +1,11 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { t } from "i18next";
 
 function Navbar() {
   const Navlist = [
-    { title: "בית", link: "" },
-    { title: "מושן חדש", link: "/CreateNew" },
+    { title: t("NavBar.Home"), link: "" },
+    { title: t("NavBar.new_motion"), link: "/CreateNew" },
   ];
   return (
     <>

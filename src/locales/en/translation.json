@@ -1,0 +1,39 @@
+{
+    "Home": {
+        "OG": "Opening Government",
+        "OO": "Opening Opposition",
+        "CG": "Closing Government",
+        "CO": "Closing Opposition",
+        "delete_motion": "Delete Motion",
+        "select_motion": "Select a Motion",
+        "PM": "Prime Minister",
+        "LO": "Leader Of Opposition",
+        "DPM": "Deputy Prime Minister",
+        "DLO": "Deputy Leader Of Opposition",
+        "MG": "Member Of Government",
+        "MO": "Member Of Opposition",
+        "GW": "Government Whip",
+        "OW": "Opposition Whip",
+        "speech": "{{title}} Arguments",
+        "rebuttal": "{{title}} Rebuttal",
+        "POI": "Points of Information",
+        "no_speech_available": "Speech not available",
+        "no_POI_available": "No Points of Information"
+    },
+    "Speech": {
+        "speech": "{{title}} Speech",
+        "arguments": "Arguments",
+        "rebuttal": "Rebuttal",
+        "POI": "Points of Information",
+        "submit": "Submit"
+    },
+    "CreateNew": {
+        "motion": "Motion",
+        "insert_motion": "Insert a Motion",
+        "start_debate": "Start Debate"
+    },
+    "NavBar": {
+        "Home": "Home",
+        "new_motion": "New Motion"
+    }
+}

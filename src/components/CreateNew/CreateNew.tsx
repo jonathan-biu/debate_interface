@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Debate } from "../../functions/types"; // Ensure types are imported correctly
 import { writeTextFile, readTextFile } from "@tauri-apps/plugin-fs"; // Import Tauri FS API
 import { dataDir } from "@tauri-apps/api/path";
+import { t } from "i18next";
 
 function CreateNew() {
   const [motion, setMotion] = useState("");
@@ -63,15 +64,15 @@ function CreateNew() {
 
   return (
     <>
-      <h1>מושן</h1>
+      <h1>{t("CreateNew.motion")}</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={motion}
           onChange={handleSetMotion}
-          placeholder="הכנס/י מושן"
+          placeholder={t("CreateNew.insert_motion")}
         />
-        <button type="submit">התחל/י דיבייט</button>
+        <button type="submit">{t("CreateNew.start_debate")}</button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && (

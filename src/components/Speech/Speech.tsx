@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Debate, SpeakerRole } from "../../functions/types"; // Adjust the import path
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"; // Import Tauri FS API
 import { dataDir } from "@tauri-apps/api/path";
+import { t } from "i18next";
 
 const Speech = () => {
   const { speaker: speakerParam, id } = useParams<{
@@ -20,16 +21,6 @@ const Speech = () => {
   const [error, setError] = useState<string>("");
 
   // Translation dictionary for speaker roles
-  const speakerTranslations: Record<SpeakerRole, string> = {
-    PM: "ראש הממשלה",
-    LO: 'יו"ר אופוזיציה',
-    DPM: "סגן ראש הממשלה",
-    DLO: 'סגן יו"ר האופוזיציה',
-    MG: "מרחיב הממשלה",
-    MO: "מרחיב האופוזיציה",
-    GW: "מסכם הממשלה",
-    OW: "מסכם האופוזיציה",
-  };
 
   useEffect(() => {
     const fetchDebate = async () => {
@@ -190,10 +181,10 @@ const Speech = () => {
 
   return (
     <div>
-      <h1>נאום {speakerTranslations[speaker]}</h1>
+      <h1>{t("Speech.speech", { title: t(`Home.${speaker}`) })}</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>טיעונים:</label>
+          <label>{t("Speech.arguments")}</label>
           <textarea
             value={speech}
             onChange={(e) => setSpeech(e.target.value)}
@@ -202,7 +193,7 @@ const Speech = () => {
         </div>
         {!(speaker === "PM") && (
           <div>
-            <label>ריבטל:</label>
+            <label>{t("Speech.rebuttal")}</label>
             <textarea
               value={rebuttal}
               onChange={(e) => setRebuttal(e.target.value)}
@@ -211,14 +202,14 @@ const Speech = () => {
           </div>
         )}
         <div>
-          <label>POI:</label>
+          <label>{t("Speech.POI")}</label>
           <textarea
             value={POI}
             onChange={(e) => setPOI(e.target.value)}
             rows={4}
           />
         </div>
-        <button type="submit">שלח</button>
+        <button type="submit">{t("Speech.submit")}</button>
       </form>
     </div>
   );
