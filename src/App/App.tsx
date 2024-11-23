@@ -36,8 +36,14 @@ function App() {
     <>
       <Navbar />
       <div className="main-content"></div>
-      <button onClick={() => changeLanguage("en")}>English</button>
-      <button onClick={() => changeLanguage("he")}>עברית</button>
+      <select
+        name="lang_selector"
+        id="lang_selector"
+        onChange={(e) => changeLanguage(e.target.value)}
+      >
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+      </select>
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/Home/:id" Component={Home} />
