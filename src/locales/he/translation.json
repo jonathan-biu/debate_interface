@@ -17,8 +17,7 @@
         "speech": "טיעוני {{title}}",
         "rebuttal": "ריבטל {{title}}",
         "POI": "POI",
-        "no_speech_available": "לא קיים נאום במערכת",
-        "no_POI_available": "אין POI במערכת"
+        "no_speech_available": "לא קיים נאום במערכת"
     },
     "Speech": {
         "speech": "נאום {{title}}",

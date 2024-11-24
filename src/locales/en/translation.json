@@ -17,8 +17,7 @@
         "speech": "{{title}} Arguments",
         "rebuttal": "{{title}} Rebuttal",
         "POI": "Points of Information",
-        "no_speech_available": "Speech not available",
-        "no_POI_available": "No Points of Information"
+        "no_speech_available": "Speech not available"
     },
     "Speech": {
         "speech": "{{title}} Speech",
