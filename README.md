@@ -3,7 +3,7 @@
 A prototype application built in `react` and packaged by `tauri` to give a more streamlined judging experience to BP style debates
 the app is localised to both `he` and `eng`
 
-# plugins
+## plugins
 
 the app uses the `fs` plugin to generate a `db.json` file in the data directory upon first init and edit the file as needed (e.g. adding new debates, updating speeches etc.)
 
