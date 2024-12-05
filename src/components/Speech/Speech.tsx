@@ -1,5 +1,5 @@
 import "./Speech.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Debate, SpeakerRole } from "../../functions/types"; // Adjust the import path
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"; // Import Tauri FS API
@@ -21,7 +21,54 @@ const Speech = () => {
   const [error, setError] = useState<string>("");
   const [motion, setMotion] = useState<string>("");
   const [speakerName, setSpeakerName] = useState<string>(""); // Add speakerTitle state
+  const speechRef = useRef<HTMLTextAreaElement>(null);
+  const rebuttalRef = useRef<HTMLTextAreaElement>(null);
+  const poiRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "b") {
+        event.preventDefault();
+        wrapSelectedText("*");
+      } else if (event.ctrlKey && event.key === "d") {
+        event.preventDefault();
+        wrapSelectedText("$");
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const wrapSelectedText = (wrapper: string) => {
+    const textArea = document.activeElement as HTMLTextAreaElement;
+    if (!textArea || !["speech", "rebuttal", "POI"].includes(textArea.name))
+      return;
+
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+    const text = textArea.value;
+
+    if (start === end) return; // No text selected
+
+    const before = text.substring(0, start);
+    const selected = text.substring(start, end);
+    const after = text.substring(end);
+
+    const newText = `${before}${wrapper}${selected}${wrapper}${after}`;
+    textArea.value = newText;
+
+    // Update the state based on which text area is focused
+    if (textArea.name === "speech") {
+      setSpeech(newText);
+    } else if (textArea.name === "rebuttal") {
+      setRebuttal(newText);
+    } else if (textArea.name === "POI") {
+      setPOI(newText);
+    }
+  };
   // Translation dictionary for speaker roles
 
   useEffect(() => {
@@ -176,15 +223,16 @@ const Speech = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleback = (event: KeyboardEvent) => {
       if (event.altKey && event.key === "ArrowLeft") {
+        event.preventDefault();
         navigate(-1);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleback);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleback);
     };
   }, [navigate]);
 
@@ -198,9 +246,6 @@ const Speech = () => {
 
   return (
     <>
-      {speaker !== "PM" && (
-        <button onClick={() => navigate(-1)}>Go Back</button>
-      )}
       <div>
         <h1>{motion}</h1>
         <h2 style={{ color: "white" }}>
@@ -212,6 +257,8 @@ const Speech = () => {
           <div>
             <label>{t("Speech.arguments")}</label>
             <textarea
+              name="speech"
+              ref={speechRef}
               value={speech}
               onChange={(e) => setSpeech(e.target.value)}
               rows={6}
@@ -221,6 +268,8 @@ const Speech = () => {
             <div>
               <label>{t("Speech.rebuttal")}</label>
               <textarea
+                name="rebuttal"
+                ref={rebuttalRef}
                 value={rebuttal}
                 onChange={(e) => setRebuttal(e.target.value)}
                 rows={6}
@@ -230,6 +279,8 @@ const Speech = () => {
           <div>
             <label>{t("Speech.POI")}</label>
             <textarea
+              name="POI"
+              ref={poiRef}
               value={POI}
               onChange={(e) => setPOI(e.target.value)}
               rows={4}

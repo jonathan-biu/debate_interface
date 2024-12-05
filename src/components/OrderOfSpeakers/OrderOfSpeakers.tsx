@@ -45,12 +45,12 @@ const OrderOfSpeakers = () => {
       }
       speakers.forEach((speaker, index) => {
         if (id) {
-          console.log(
-            currentJson[speakerKeys[index]],
-            id,
-            speakerKeys[index],
-            speaker
-          );
+          // console.log(
+          //   currentJson[speakerKeys[index]],
+          //   id,
+          //   speakerKeys[index],
+          //   speaker
+          // );
 
           currentJson[speakerKeys[index]].speaker = speaker;
         }
