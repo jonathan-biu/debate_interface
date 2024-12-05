@@ -83,12 +83,12 @@ const Home = () => {
               title={t("Home.OG")}
               speakers={[
                 {
-                  title: t("Home.PM"),
+                  title: t("Home.PM") + ` - ${selectedMotion.PM?.speaker}`,
                   speech: selectedMotion.PM?.speech,
                   POI: selectedMotion.PM?.POI,
                 },
                 {
-                  title: t("Home.DPM"),
+                  title: t("Home.DPM") + ` - ${selectedMotion.DPM?.speaker}`,
                   speech: selectedMotion.DPM?.speech,
                   POI: selectedMotion.DPM?.POI,
                   rebuttal: selectedMotion.DPM?.rebuttal,
@@ -99,13 +99,13 @@ const Home = () => {
               title={t("Home.CG")}
               speakers={[
                 {
-                  title: t("Home.MG"),
+                  title: t("Home.MG") + ` - ${selectedMotion.MG?.speaker}`,
                   speech: selectedMotion.MG?.speech,
                   POI: selectedMotion.MG?.POI,
                   rebuttal: selectedMotion.MG?.rebuttal,
                 },
                 {
-                  title: t("Home.GW"),
+                  title: t("Home.GW") + ` - ${selectedMotion.GW?.speaker}`,
                   speech: selectedMotion.GW?.speech,
                   POI: selectedMotion.GW?.POI,
                   rebuttal: selectedMotion.GW?.rebuttal,
@@ -119,13 +119,13 @@ const Home = () => {
               title={t("Home.OO")}
               speakers={[
                 {
-                  title: t("Home.LO"),
+                  title: t("Home.LO") + ` - ${selectedMotion.LO?.speaker}`,
                   speech: selectedMotion.LO?.speech,
                   POI: selectedMotion.LO?.POI,
                   rebuttal: selectedMotion.LO?.rebuttal,
                 },
                 {
-                  title: t("Home.DLO"),
+                  title: t("Home.DLO") + ` - ${selectedMotion.DLO?.speaker}`,
                   speech: selectedMotion.DLO?.speech,
                   POI: selectedMotion.DLO?.POI,
                   rebuttal: selectedMotion.DLO?.rebuttal,
@@ -136,13 +136,13 @@ const Home = () => {
               title={t("Home.CO")}
               speakers={[
                 {
-                  title: t("Home.MO"),
+                  title: t("Home.MO") + ` - ${selectedMotion.MO?.speaker}`,
                   speech: selectedMotion.MO?.speech,
                   POI: selectedMotion.MO?.POI,
                   rebuttal: selectedMotion.MO?.rebuttal,
                 },
                 {
-                  title: t("Home.OW"),
+                  title: t("Home.OW") + ` - ${selectedMotion.OW?.speaker}`,
                   speech: selectedMotion.OW?.speech,
                   POI: selectedMotion.OW?.POI,
                   rebuttal: selectedMotion.OW?.rebuttal,

@@ -5,6 +5,7 @@ import Home from "../components/Home/Home";
 import Navbar from "../components/Navbar/Navbar";
 import Speech from "../components/Speech/Speech";
 import CreateNew from "../components/CreateNew/CreateNew";
+import OrderOfSpeakers from "../components/OrderOfSpeakers/OrderOfSpeakers";
 //route
 import { Route, Routes } from "react-router-dom";
 import "../i18n";
@@ -49,6 +50,7 @@ function App() {
         <Route path="/Home/:id" Component={Home} />
         <Route path="/CreateNew" Component={CreateNew} />
         <Route path="/Speech/:speaker/:id" Component={Speech} />
+        <Route path="/speakers/:id" Component={OrderOfSpeakers} />
       </Routes>
     </>
   );

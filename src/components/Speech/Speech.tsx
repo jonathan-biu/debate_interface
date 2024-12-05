@@ -19,6 +19,8 @@ const Speech = () => {
   const [POI, setPOI] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [motion, setMotion] = useState<string>("");
+  const [speakerName, setSpeakerName] = useState<string>(""); // Add speakerTitle state
 
   // Translation dictionary for speaker roles
 
@@ -45,6 +47,8 @@ const Speech = () => {
         const debate = currentDebates.find((debate) => debate.id === id);
 
         if (debate) {
+          setMotion(debate.motion);
+          setSpeakerName(debate[speaker]?.speaker || ""); // Set the speaker title
           setSpeech(debate[speaker]?.speech || "");
           setRebuttal(debate[speaker]?.rebuttal || "");
           setPOI(debate[speaker]?.POI || "");
@@ -171,6 +175,19 @@ const Speech = () => {
     navigate(`/Speech/${nextSpeaker}/${id}`);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey && event.key === "ArrowLeft") {
+        navigate(-1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [navigate]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -180,38 +197,48 @@ const Speech = () => {
   }
 
   return (
-    <div>
-      <h1>{t("Speech.speech", { title: t(`Home.${speaker}`) })}</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>{t("Speech.arguments")}</label>
-          <textarea
-            value={speech}
-            onChange={(e) => setSpeech(e.target.value)}
-            rows={6}
-          />
-        </div>
-        {!(speaker === "PM") && (
+    <>
+      {speaker !== "PM" && (
+        <button onClick={() => navigate(-1)}>Go Back</button>
+      )}
+      <div>
+        <h1>{motion}</h1>
+        <h2 style={{ color: "white" }}>
+          {t("Speech.speech", {
+            title: t(`Home.${speaker}`),
+          }) + ` - ${speakerName}`}
+        </h2>
+        <form onSubmit={handleSubmit}>
           <div>
-            <label>{t("Speech.rebuttal")}</label>
+            <label>{t("Speech.arguments")}</label>
             <textarea
-              value={rebuttal}
-              onChange={(e) => setRebuttal(e.target.value)}
+              value={speech}
+              onChange={(e) => setSpeech(e.target.value)}
               rows={6}
             />
           </div>
-        )}
-        <div>
-          <label>{t("Speech.POI")}</label>
-          <textarea
-            value={POI}
-            onChange={(e) => setPOI(e.target.value)}
-            rows={4}
-          />
-        </div>
-        <button type="submit">{t("Speech.submit")}</button>
-      </form>
-    </div>
+          {!(speaker === "PM") && (
+            <div>
+              <label>{t("Speech.rebuttal")}</label>
+              <textarea
+                value={rebuttal}
+                onChange={(e) => setRebuttal(e.target.value)}
+                rows={6}
+              />
+            </div>
+          )}
+          <div>
+            <label>{t("Speech.POI")}</label>
+            <textarea
+              value={POI}
+              onChange={(e) => setPOI(e.target.value)}
+              rows={4}
+            />
+          </div>
+          <button type="submit">{t("Speech.submit")}</button>
+        </form>
+      </div>
+    </>
   );
 };
 

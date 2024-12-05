@@ -1,5 +1,6 @@
 // types.ts
 export interface Speech {
+  speaker: string;
   speech: string;
   rebuttal: string;
   POI: string;

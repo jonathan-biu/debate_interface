@@ -22,14 +22,14 @@ function CreateNew() {
 
     const newDebate: Omit<Debate, "id"> = {
       motion: motion,
-      PM: { speech: "", rebuttal: "", POI: "" },
-      LO: { speech: "", rebuttal: "", POI: "" },
-      DPM: { speech: "", rebuttal: "", POI: "" },
-      DLO: { speech: "", rebuttal: "", POI: "" },
-      MG: { speech: "", rebuttal: "", POI: "" },
-      MO: { speech: "", rebuttal: "", POI: "" },
-      GW: { speech: "", rebuttal: "", POI: "" },
-      OW: { speech: "", rebuttal: "", POI: "" },
+      PM: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      LO: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      DPM: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      DLO: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      MG: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      MO: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      GW: { speaker: "", speech: "", rebuttal: "", POI: "" },
+      OW: { speaker: "", speech: "", rebuttal: "", POI: "" },
     };
 
     try {
@@ -55,7 +55,7 @@ function CreateNew() {
       // Update the state and UI
       setSuccess(true);
       setMotion(""); // Clear input on success
-      navigate(`/Speech/PM/${newDebateWithId.id}`); // Navigate to the new route
+      navigate(`/speakers/${newDebateWithId.id}`); // Navigate to the new route
     } catch (error) {
       setError("An error occurred while creating the debate entry.");
       console.error(error);
