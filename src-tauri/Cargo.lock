@@ -546,7 +546,7 @@ dependencies = [
 
 [[package]]
 name = "debate_tauri"
-version = "2.2.0"
+version = "2.2.2"
 dependencies = [
  "serde",
  "serde_json",
