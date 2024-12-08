@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Home.css";
+import "./output.css";
 import { Debate } from "../../functions/types";
 import { writeFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
@@ -22,6 +22,14 @@ const Home = () => {
     fetchDebates(setMotions, setLoading, setError);
   }, []);
 
+  /**
+   * Deletes a motion by its ID and updates the local storage and state.
+   *
+   * @param {string} motionId - The ID of the motion to delete.
+   * @returns {Promise<void>} - A promise that resolves when the motion is deleted and the data is updated.
+   *
+   * @throws Will throw an error if there is an issue deleting the motion or updating the file.
+   */
   const handleDeleteMotion = async (motionId: string) => {
     try {
       const updatedMotions = motions.filter((motion) => motion.id !== motionId);
@@ -33,6 +41,8 @@ const Home = () => {
       const uint8ArrayData = new TextEncoder().encode(updatedData);
 
       await writeFile(filePath, uint8ArrayData, { create: true });
+      setSelectedMotionId(undefined);
+      setMotionTitle("");
     } catch (error) {
       console.error("Error deleting motion:", error);
     }

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { t } from "i18next";
 import { writeTextFile, readTextFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
+import "./output.css";
 
 const OrderOfSpeakers = () => {
   const { id } = useParams<{ id: string }>();
@@ -78,10 +79,10 @@ const OrderOfSpeakers = () => {
 
   return (
     <div>
-      <h1>Order of Speakers</h1>
+      <h1>{t("Speakers.OrderOfSpeakers")}</h1>
       <form onSubmit={handleSubmit}>
         {speakers.map((speaker, index) => (
-          <div key={index}>
+          <div key={index} className="inputdiv">
             <label>{speakerLabels[index]}</label>
             <input
               type="text"
@@ -90,7 +91,7 @@ const OrderOfSpeakers = () => {
             />
           </div>
         ))}
-        <button type="submit">Save and Continue</button>
+        <button type="submit">{t("Speech.submit")}</button>
       </form>
     </div>
   );

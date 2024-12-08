@@ -34,5 +34,8 @@
     "NavBar": {
         "Home": "בית",
         "new_motion": "מושן חדש"
+    },
+    "Speakers": {
+        "OrderOfSpeakers": "סדר דוברים"
     }
 }

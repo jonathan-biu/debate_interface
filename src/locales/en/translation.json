@@ -34,5 +34,8 @@
     "NavBar": {
         "Home": "Home",
         "new_motion": "New Motion"
+    },
+    "Speakers": {
+        "OrderOfSpeakers": "Order of Speakers"
     }
 }
