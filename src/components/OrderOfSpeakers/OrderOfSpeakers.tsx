@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { t } from "i18next";
 import { writeTextFile, readTextFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
-import "./output.css";
+import "./OrderOfSpeakers.css";
 
 const OrderOfSpeakers = () => {
   const { id } = useParams<{ id: string }>();

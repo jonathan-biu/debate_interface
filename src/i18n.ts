@@ -11,11 +11,15 @@ const resources = {
   he: { translation: heTranslation },
 };
 
+// Detect the user's language
+const userLanguage = navigator.language.split("-")[0]; // Get the language code (e.g., 'en', 'he')
+
+// Initialize i18n
 i18n
   .use(initReactI18next) // Bind React-i18next
   .init({
     resources, // Load translations from local files
-    lng: "en", // Default language
+    lng: userLanguage, // Set the detected language as the default language
     fallbackLng: "en", // Fallback language
     debug: false, // Enable debug mode for development
     interpolation: {

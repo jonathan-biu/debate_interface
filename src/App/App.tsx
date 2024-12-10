@@ -40,6 +40,7 @@ function App() {
       <select
         name="lang_selector"
         id="lang_selector"
+        value={currentLang}
         onChange={(e) => changeLanguage(e.target.value)}
       >
         <option value="en">English</option>

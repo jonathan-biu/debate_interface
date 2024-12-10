@@ -1,4 +1,4 @@
-import "./output.css";
+import "./Speech.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Debate, SpeakerRole } from "../../functions/types"; // Adjust the import path

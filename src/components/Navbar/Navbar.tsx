@@ -1,4 +1,4 @@
-import "./output.css";
+import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { t } from "i18next";
 

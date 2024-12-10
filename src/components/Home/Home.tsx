@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./output.css";
+import "./Home.css";
 import { Debate } from "../../functions/types";
 import { writeFile } from "@tauri-apps/plugin-fs";
 import { dataDir } from "@tauri-apps/api/path";
