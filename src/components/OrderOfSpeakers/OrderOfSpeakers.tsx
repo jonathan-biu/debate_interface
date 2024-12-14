@@ -36,7 +36,7 @@ const OrderOfSpeakers = () => {
       const db = existingData ? JSON.parse(existingData) : {};
 
       // Mapping of speaker roles to their respective keys
-      const speakerKeys = ["PM", "LO", "DPM", "DLO", "MG", "MO", "GW", "OW"];
+      const speakerKeys = ["PM", "DPM", "LO", "DLO", "MG", "GW", "MO", "OW"];
       const currentJson = db.find((debate: { id: string }) => debate.id === id);
       // Update the data with the new speakers
       if (id && !currentJson.id) {
@@ -68,12 +68,12 @@ const OrderOfSpeakers = () => {
 
   const speakerLabels = [
     t("Home.PM"),
-    t("Home.LO"),
     t("Home.DPM"),
+    t("Home.LO"),
     t("Home.DLO"),
     t("Home.MG"),
-    t("Home.MO"),
     t("Home.GW"),
+    t("Home.MO"),
     t("Home.OW"),
   ];
 

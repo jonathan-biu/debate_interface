@@ -24,15 +24,28 @@ const Speech = () => {
   const speechRef = useRef<HTMLTextAreaElement>(null);
   const rebuttalRef = useRef<HTMLTextAreaElement>(null);
   const poiRef = useRef<HTMLTextAreaElement>(null);
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.key === "b") {
+      if (event.ctrlKey && event.code === "KeyB") {
         event.preventDefault();
         wrapSelectedText("*");
-      } else if (event.ctrlKey && event.key === "d") {
+      } else if (event.ctrlKey && event.code === "KeyD") {
         event.preventDefault();
         wrapSelectedText("$");
+      } else if (event.code === "Tab") {
+        event.preventDefault();
+        insertTab(event);
+      } else if (event.ctrlKey && event.code === "ArrowUp") {
+        event.preventDefault();
+        focusNextTextArea();
+      } else if (event.ctrlKey && event.code === "ArrowDown") {
+        event.preventDefault();
+        focusPreviousTextArea();
+      } else if (
+        (event.code === "Enter" || event.code === "NumpadEnter") &&
+        !event.shiftKey
+      ) {
+        handleOrderedListAutocomplete(event);
       }
     };
 
@@ -42,6 +55,98 @@ const Speech = () => {
     };
   }, []);
 
+  const handleOrderedListAutocomplete = (event: KeyboardEvent) => {
+    const textArea = document.activeElement as HTMLTextAreaElement;
+    if (!textArea || !["speech", "rebuttal", "POI"].includes(textArea.name))
+      return;
+
+    const start = textArea.selectionStart;
+    const text = textArea.value;
+    const before = text.substring(0, start);
+    const match = before.match(/(\n|^)(\s*)(\d+|[a-zA-Z])\.\s*.*$/);
+
+    if (match) {
+      const indentation = match[2];
+      const listType = match[3];
+      const after = text.substring(start);
+      let nextItem;
+
+      if (/\d+/.test(listType)) {
+        nextItem = parseInt(listType, 10) + 1 + ".";
+      } else {
+        nextItem = String.fromCharCode(listType.charCodeAt(0) + 1) + ".";
+      }
+
+      textArea.value = `${before}\n${indentation}${nextItem} ${after}`;
+      textArea.selectionStart = textArea.selectionEnd =
+        start + `\n${indentation}${nextItem} `.length;
+      event.preventDefault();
+    } else {
+      const listTypeMatch = before.match(/(\n|^)(\s*)(listType)\.\s*$/);
+      if (listTypeMatch) {
+        const indentation = listTypeMatch[2];
+        const after = text.substring(start);
+        textArea.value = `${before}\n${indentation}a. ${after}`;
+        textArea.selectionStart = textArea.selectionEnd =
+          start + `\n${indentation}a. `.length;
+        event.preventDefault();
+      }
+    }
+  };
+
+  const insertTab = (event: KeyboardEvent) => {
+    const textArea = document.activeElement as HTMLTextAreaElement;
+    if (!textArea || !["speech", "rebuttal", "POI"].includes(textArea.name))
+      return;
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+    const text = textArea.value;
+    const before = text.substring(0, start);
+    const match = before.match(/(\n|^)(\s*)(\d+|[a-zA-Z])\.\s*.*$/);
+
+    if (match) {
+      const indentation = match[2] + "\t";
+      const listType = match[3];
+      const after = text.substring(start);
+      let nextItem;
+
+      if (/\d+/.test(listType)) {
+        nextItem = "a.";
+      } else {
+        nextItem = "1.";
+      }
+
+      textArea.value = `${before}\n${indentation}${nextItem} ${after}`;
+      textArea.selectionStart = textArea.selectionEnd =
+        start + `\n${indentation}${nextItem} `.length;
+      event.preventDefault();
+    } else {
+      textArea.value = `${text.substring(0, start)}\t${text.substring(end)}`;
+      textArea.selectionStart = textArea.selectionEnd = start + 1;
+    }
+  };
+
+  const focusNextTextArea = () => {
+    const textArea = document.activeElement as HTMLTextAreaElement;
+    if (textArea === speechRef.current) {
+      rebuttalRef.current?.focus();
+    } else if (textArea === rebuttalRef.current) {
+      poiRef.current?.focus();
+    } else if (textArea === poiRef.current) {
+      speechRef.current?.focus();
+    }
+  };
+
+  const focusPreviousTextArea = () => {
+    const textArea = document.activeElement as HTMLTextAreaElement;
+    if (textArea === speechRef.current) {
+      poiRef.current?.focus();
+    } else if (textArea === rebuttalRef.current) {
+      speechRef.current?.focus();
+    } else if (textArea === poiRef.current) {
+      rebuttalRef.current?.focus();
+    }
+  };
   const wrapSelectedText = (wrapper: string) => {
     const textArea = document.activeElement as HTMLTextAreaElement;
     if (!textArea || !["speech", "rebuttal", "POI"].includes(textArea.name))

@@ -4,7 +4,7 @@ import { t } from "i18next";
 export const formatText = (text: string) => {
   if (!text) return `${t("Home.no_speech_available")}`;
 
-  const parts = text.split(/(\*.*?\*|\$.*?\$|\n)/g);
+  const parts = text.split(/(\*.*?\*|\$.*?\$|\n|\t)/g);
 
   return parts.map((part, index) => {
     if (!part) return null;
@@ -30,6 +30,8 @@ export const formatText = (text: string) => {
     // Handle newline characters
     else if (part === "\n") {
       return <br key={index} />;
+    } else if (part === "\t") {
+      return <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>;
     }
 
     return part;
