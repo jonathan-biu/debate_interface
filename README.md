@@ -9,4 +9,4 @@ the app uses the `fs` plugin to generate a `db.json` file in the data directory 
 
 ## features
 
-the app preserves newline characters and formats text such that text between `*` is bolded and red and text between `$` is bolded and blue
+the app preserves newline characters and formats text such that text between `*` is bolded and red,it is also possible to highlight the text and use `ctrl + D`, text between `$` is bolded and blue, it is also possible to highlight the text and use `ctrl + D`
