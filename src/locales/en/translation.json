@@ -33,7 +33,15 @@
     },
     "NavBar": {
         "Home": "Home",
-        "new_motion": "New Motion"
+        "new_motion": "New Motion",
+        "PM": "Prime Minister",
+        "LO": "Leader Of Opposition",
+        "DPM": "Deputy Prime Minister",
+        "DLO": "Deputy Leader Of Opposition",
+        "MG": "Member Of Government",
+        "MO": "Member Of Opposition",
+        "GW": "Government Whip",
+        "OW": "Opposition Whip"
     },
     "Speakers": {
         "OrderOfSpeakers": "Order of Speakers"

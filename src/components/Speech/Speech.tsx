@@ -35,10 +35,10 @@ const Speech = () => {
       } else if (event.code === "Tab") {
         event.preventDefault();
         insertTab(event);
-      } else if (event.ctrlKey && event.code === "ArrowUp") {
+      } else if (event.ctrlKey && event.code === "ArrowDown") {
         event.preventDefault();
         focusNextTextArea();
-      } else if (event.ctrlKey && event.code === "ArrowDown") {
+      } else if (event.ctrlKey && event.code === "ArrowUp") {
         event.preventDefault();
         focusPreviousTextArea();
       } else if (
@@ -129,22 +129,30 @@ const Speech = () => {
   const focusNextTextArea = () => {
     const textArea = document.activeElement as HTMLTextAreaElement;
     if (textArea === speechRef.current) {
-      rebuttalRef.current?.focus();
+      if (rebuttalRef.current) {
+        rebuttalRef.current.focus();
+      } else {
+        poiRef.current?.focus();
+      }
     } else if (textArea === rebuttalRef.current) {
       poiRef.current?.focus();
     } else if (textArea === poiRef.current) {
-      speechRef.current?.focus();
+      return; // No next text area
     }
   };
 
   const focusPreviousTextArea = () => {
     const textArea = document.activeElement as HTMLTextAreaElement;
     if (textArea === speechRef.current) {
-      poiRef.current?.focus();
+      return; // No previous text area
     } else if (textArea === rebuttalRef.current) {
       speechRef.current?.focus();
     } else if (textArea === poiRef.current) {
-      rebuttalRef.current?.focus();
+      if (rebuttalRef.current) {
+        rebuttalRef.current.focus();
+      } else {
+        speechRef.current?.focus();
+      }
     }
   };
   const wrapSelectedText = (wrapper: string) => {
@@ -353,7 +361,7 @@ const Speech = () => {
     <>
       <div>
         <h1>{motion}</h1>
-        <h2 style={{ color: "white" }}>
+        <h2>
           {t("Speech.speech", {
             title: t(`Home.${speaker}`),
           }) + ` - ${speakerName}`}
