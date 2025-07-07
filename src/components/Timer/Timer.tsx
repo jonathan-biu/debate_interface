@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import bellSound from "../../assets/bell.mp3";
 
 interface TimerProps {
@@ -9,12 +10,13 @@ interface TimerProps {
 const NEGATIVE_LIMIT = -15;
 
 const Timer: React.FC<TimerProps> = ({
-  initialSeconds = 60 * 7, // Default to 7 minutes
+  initialSeconds = 60 * 7,
   onComplete,
 }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isActive, setIsActive] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (isActive && seconds > NEGATIVE_LIMIT) {
@@ -29,6 +31,12 @@ const Timer: React.FC<TimerProps> = ({
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isActive, seconds, onComplete]);
+
+  // Reset timer when URL changes
+  useEffect(() => {
+    setIsActive(false);
+    setSeconds(initialSeconds);
+  }, [location.pathname, initialSeconds]);
 
   const start = () => setIsActive(true);
   const pause = () => setIsActive(false);
@@ -46,40 +54,33 @@ const Timer: React.FC<TimerProps> = ({
     return `${secs < 0 ? "-" : ""}${m}:${s}`;
   };
 
-  // Calculate elapsed and remaining time
   const elapsed = initialSeconds - seconds;
   const remaining = seconds;
 
-  // Set background color: green if 1 minute elapsed and 1+ minute remains
   let backgroundColor = undefined;
   if (elapsed >= 60 && remaining > 60) {
     backgroundColor = "green";
   }
-
   if (remaining <= 0) {
-    backgroundColor = "red"; // Red when time is up
+    backgroundColor = "red";
   }
-  // Import the bell sound at the top of the file
-  // import bellSound from "../../assets/bell.mp3";
+
   if (elapsed == 60) {
     const bell = new Audio(bellSound);
     bell.play();
   }
-
   if (remaining == 60) {
     const bell = new Audio(bellSound);
     bell.play();
   }
-
   if (remaining == 0) {
     const bell = new Audio(bellSound);
     bell.play();
     setTimeout(() => {
       const bell2 = new Audio(bellSound);
       bell2.play();
-    }, 500); // Play second bell after 0.5 second
+    }, 500);
   }
-
   if (seconds === NEGATIVE_LIMIT) {
     const bell = new Audio(bellSound);
     bell.play();
@@ -90,7 +91,7 @@ const Timer: React.FC<TimerProps> = ({
         const bell3 = new Audio(bellSound);
         bell3.play();
       }, 500);
-    }, 500); // Play second bell after 0.5 second
+    }, 500);
   }
 
   return (
