@@ -45,5 +45,12 @@
     },
     "Speakers": {
         "OrderOfSpeakers": "סדר דוברים"
+    },
+    "Timer": {
+        "start": "התחל/י",
+        "pause": "הפסק/י",
+        "reset": "אפס/י",
+        "silence_bell": "השתק/י פעמון",
+        "unmute_bell": "בטל/י השתקת פעמון"
     }
 }

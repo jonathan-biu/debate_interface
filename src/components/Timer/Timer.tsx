@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import bellSound from "../../assets/bell.mp3";
+import { t } from "i18next";
 
 interface TimerProps {
   initialSeconds?: number;
@@ -15,6 +16,7 @@ const Timer: React.FC<TimerProps> = ({
 }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isActive, setIsActive] = useState(false);
+  const [silenceBell, setSilenceBell] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const location = useLocation();
 
@@ -65,34 +67,40 @@ const Timer: React.FC<TimerProps> = ({
     backgroundColor = "red";
   }
 
-  if (elapsed == 60) {
-    const bell = new Audio(bellSound);
-    bell.play();
-  }
-  if (remaining == 60) {
-    const bell = new Audio(bellSound);
-    bell.play();
-  }
-  if (remaining == 0) {
-    const bell = new Audio(bellSound);
-    bell.play();
-    setTimeout(() => {
-      const bell2 = new Audio(bellSound);
-      bell2.play();
-    }, 500);
-  }
-  if (seconds === NEGATIVE_LIMIT) {
-    const bell = new Audio(bellSound);
-    bell.play();
-    setTimeout(() => {
-      const bell2 = new Audio(bellSound);
-      bell2.play();
+  // Bell logic moved into useEffect to avoid playing on every render
+  useEffect(() => {
+    if (silenceBell) return;
+
+    if (elapsed === 60) {
+      const bell = new Audio(bellSound);
+      bell.play();
+    }
+    if (remaining === 60) {
+      const bell = new Audio(bellSound);
+      bell.play();
+    }
+    if (remaining === 0) {
+      const bell = new Audio(bellSound);
+      bell.play();
       setTimeout(() => {
-        const bell3 = new Audio(bellSound);
-        bell3.play();
+        const bell2 = new Audio(bellSound);
+        bell2.play();
       }, 500);
-    }, 500);
-  }
+    }
+    if (seconds === NEGATIVE_LIMIT) {
+      const bell = new Audio(bellSound);
+      bell.play();
+      setTimeout(() => {
+        const bell2 = new Audio(bellSound);
+        bell2.play();
+        setTimeout(() => {
+          const bell3 = new Audio(bellSound);
+          bell3.play();
+        }, 500);
+      }, 500);
+    }
+    // eslint-disable-next-line
+  }, [elapsed, remaining, seconds, silenceBell]);
 
   return (
     <div>
@@ -110,12 +118,20 @@ const Timer: React.FC<TimerProps> = ({
         {formatTime(seconds)}
       </div>
       <button onClick={start} disabled={isActive || seconds === NEGATIVE_LIMIT}>
-        Start
+        {t("Timer.start")}
       </button>
       <button onClick={pause} disabled={!isActive}>
-        Pause
+        {t("Timer.pause")}
       </button>
-      <button onClick={reset}>Reset</button>
+      <button onClick={reset}>{t("Timer.reset")}</button>
+      <button
+        style={{ marginLeft: "1rem" }}
+        onClick={() => setSilenceBell((prev) => !prev)}
+        aria-pressed={silenceBell}
+        title={silenceBell ? t("Timer.unmute_bell") : t("Timer.silence_bell")}
+      >
+        <i className={`fa-solid fa-bell${silenceBell ? "-slash" : ""}`}></i>
+      </button>
     </div>
   );
 };

@@ -45,5 +45,12 @@
     },
     "Speakers": {
         "OrderOfSpeakers": "Order of Speakers"
+    },
+    "Timer": {
+        "start": "Start",
+        "pause": "Pause",
+        "reset": "Reset",
+        "silence_bell": "Silence Bell",
+        "unmute_bell": "Unmute Bell"
     }
 }

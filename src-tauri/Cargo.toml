@@ -1,6 +1,6 @@
 [package]
 name = "debate_tauri"
-version = "2.5.0"
+version = "2.6.0"
 description = "An interface for better judging experience"
 authors = ["you"]
 edition = "2021"
