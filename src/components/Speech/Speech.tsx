@@ -5,6 +5,7 @@ import { Debate, SpeakerRole } from "../../functions/types"; // Adjust the impor
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"; // Import Tauri FS API
 import { dataDir } from "@tauri-apps/api/path";
 import { t } from "i18next";
+import Timer from "../Timer/Timer"; // Adjust the import path
 
 const Speech = () => {
   const { speaker: speakerParam, id } = useParams<{
@@ -361,11 +362,23 @@ const Speech = () => {
     <>
       <div>
         <h1>{motion}</h1>
-        <h2>
-          {t("Speech.speech", {
-            title: t(`Home.${speaker}`),
-          }) + ` - ${speakerName}`}
-        </h2>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
+          <h2 style={{ margin: 0 }}>
+            {t("Speech.speech", {
+              title: t(`Home.${speaker}`),
+            }) + ` - ${speakerName}`}
+          </h2>
+          <div>
+            <Timer />
+          </div>
+        </div>
         <form onSubmit={handleSubmit}>
           <div>
             <label>{t("Speech.arguments")}</label>
