@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import bellSound from "../../assets/bell.mp3";
 import { t } from "i18next";
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 interface TimerProps {
   initialSeconds?: number;
@@ -10,15 +11,20 @@ interface TimerProps {
 
 const NEGATIVE_LIMIT = -15;
 
-const Timer: React.FC<TimerProps> = ({
-  initialSeconds = 60 * 7,
-  onComplete,
-}) => {
-  const [seconds, setSeconds] = useState(initialSeconds);
+const Timer: React.FC<TimerProps> = ({ initialSeconds, onComplete }) => {
+  const { getSetting } = useSettingsContext();
+  const defaultTime = getSetting("speechTimerDefault") * 60; // Convert minutes to seconds
+  const [seconds, setSeconds] = useState(initialSeconds || defaultTime);
   const [isActive, setIsActive] = useState(false);
   const [silenceBell, setSilenceBell] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const location = useLocation();
+
+  // Update seconds when initialSeconds or settings change
+  useEffect(() => {
+    const newTime = initialSeconds || defaultTime;
+    setSeconds(newTime);
+  }, [initialSeconds, defaultTime]);
 
   useEffect(() => {
     if (isActive && seconds > NEGATIVE_LIMIT) {
@@ -37,14 +43,16 @@ const Timer: React.FC<TimerProps> = ({
   // Reset timer when URL changes
   useEffect(() => {
     setIsActive(false);
-    setSeconds(initialSeconds);
-  }, [location.pathname, initialSeconds]);
+    const newTime = initialSeconds || defaultTime;
+    setSeconds(newTime);
+  }, [location.pathname, initialSeconds, defaultTime]);
 
   const start = () => setIsActive(true);
   const pause = () => setIsActive(false);
   const reset = () => {
     setIsActive(false);
-    setSeconds(initialSeconds);
+    const newTime = initialSeconds || defaultTime;
+    setSeconds(newTime);
   };
 
   const formatTime = (secs: number) => {
@@ -56,7 +64,8 @@ const Timer: React.FC<TimerProps> = ({
     return `${secs < 0 ? "-" : ""}${m}:${s}`;
   };
 
-  const elapsed = initialSeconds - seconds;
+  const originalTime = initialSeconds || defaultTime;
+  const elapsed = originalTime - seconds;
   const remaining = seconds;
 
   let backgroundColor = undefined;
@@ -69,7 +78,8 @@ const Timer: React.FC<TimerProps> = ({
 
   // Bell logic moved into useEffect to avoid playing on every render
   useEffect(() => {
-    if (silenceBell) return;
+    const soundEnabled = getSetting("enableSoundNotifications");
+    if (silenceBell || !soundEnabled) return;
 
     if (elapsed === 60) {
       const bell = new Audio(bellSound);

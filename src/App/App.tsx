@@ -4,14 +4,17 @@ import Navbar from "../components/Navbar/Navbar";
 import Speech from "../components/Speech/Speech";
 import CreateNew from "../components/CreateNew/CreateNew";
 import OrderOfSpeakers from "../components/OrderOfSpeakers/OrderOfSpeakers";
+import Settings from "../components/Settings/Settings";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "../i18n";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { useSettingsContext } from "../contexts/SettingsContext";
 function App() {
   const { i18n } = useTranslation();
   const [currentLang, setCurrentLang] = useState(i18n.language);
+  const [showSettings, setShowSettings] = useState(false);
+  const { settings } = useSettingsContext();
   const location = useLocation();
 
   // Check if current route is Speech
@@ -24,6 +27,27 @@ function App() {
     });
   };
 
+  // Apply settings when they change
+  useEffect(() => {
+    // Apply theme
+    if (settings.theme) {
+      document.documentElement.setAttribute("data-theme", settings.theme);
+    }
+
+    // Apply font size
+    if (settings.fontSize) {
+      document.documentElement.setAttribute(
+        "data-font-size",
+        settings.fontSize
+      );
+    }
+
+    // Apply language
+    if (settings.language && settings.language !== i18n.language) {
+      changeLanguage(settings.language);
+    }
+  }, [settings, i18n.language]);
+
   useEffect(() => {
     document.documentElement.dir = currentLang === "he" ? "rtl" : "ltr";
   }, [currentLang]);
@@ -35,17 +59,12 @@ function App() {
 
   return (
     <>
-      <Navbar inSpeech={inSpeech} id={id} />
+      <Navbar
+        inSpeech={inSpeech}
+        id={id}
+        onSettingsClick={() => setShowSettings(true)}
+      />
       <div className="main-content"></div>
-      <select
-        name="lang_selector"
-        id="lang_selector"
-        value={currentLang}
-        onChange={(e) => changeLanguage(e.target.value)}
-      >
-        <option value="en">English</option>
-        <option value="he">עברית</option>
-      </select>
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/Home/:id" Component={Home} />
@@ -53,6 +72,13 @@ function App() {
         <Route path="/Speech/:speaker/:id" Component={Speech} />
         <Route path="/speakers/:id" Component={OrderOfSpeakers} />
       </Routes>
+
+      {showSettings && (
+        <Settings
+          onClose={() => setShowSettings(false)}
+          onLanguageChange={changeLanguage}
+        />
+      )}
     </>
   );
 }

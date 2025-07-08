@@ -6,6 +6,7 @@ import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"; // Import T
 import { dataDir } from "@tauri-apps/api/path";
 import { t } from "i18next";
 import Timer from "../Timer/Timer"; // Adjust the import path
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 const Speech = () => {
   const { speaker: speakerParam, id } = useParams<{
@@ -14,6 +15,7 @@ const Speech = () => {
   }>();
   const navigate = useNavigate();
   const speaker = speakerParam as SpeakerRole; // Cast to SpeakerRole
+  const { getSetting } = useSettingsContext();
 
   const [speech, setSpeech] = useState<string>("");
   const [rebuttal, setRebuttal] = useState<string>("");
@@ -390,7 +392,7 @@ const Speech = () => {
               rows={6}
             />
           </div>
-          {!(speaker === "PM") && (
+          {!(speaker === "PM") && getSetting("includeRebuttal") && (
             <div>
               <label>{t("Speech.rebuttal")}</label>
               <textarea
@@ -402,16 +404,18 @@ const Speech = () => {
               />
             </div>
           )}
-          <div>
-            <label>{t("Speech.POI")}</label>
-            <textarea
-              name="POI"
-              ref={poiRef}
-              value={POI}
-              onChange={(e) => setPOI(e.target.value)}
-              rows={4}
-            />
-          </div>
+          {getSetting("includePOI") && (
+            <div>
+              <label>{t("Speech.POI")}</label>
+              <textarea
+                name="POI"
+                ref={poiRef}
+                value={POI}
+                onChange={(e) => setPOI(e.target.value)}
+                rows={4}
+              />
+            </div>
+          )}
           <button type="submit">{t("Speech.submit")}</button>
         </form>
       </div>

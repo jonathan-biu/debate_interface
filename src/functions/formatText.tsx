@@ -31,7 +31,7 @@ export const formatText = (text: string) => {
     else if (part === "\n") {
       return <br key={index} />;
     } else if (part === "\t") {
-      return <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>;
+      return <span key={index}>&nbsp;&nbsp;&nbsp;&nbsp;</span>;
     }
 
     return part;

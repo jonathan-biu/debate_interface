@@ -5,9 +5,10 @@ import { t } from "i18next";
 type NavbarProps = {
   inSpeech?: boolean;
   id?: string;
+  onSettingsClick?: () => void;
 };
 
-function Navbar({ inSpeech, id }: NavbarProps) {
+function Navbar({ inSpeech, id, onSettingsClick }: NavbarProps) {
   const Navlist = [
     { title: "NavBar.Home", link: "" },
     { title: "NavBar.new_motion", link: "/CreateNew" },
@@ -40,6 +41,15 @@ function Navbar({ inSpeech, id }: NavbarProps) {
                 </li>
               ))}
         </ul>
+      </div>
+      <div className="navbar-right">
+        <button
+          className="settings-button"
+          onClick={onSettingsClick}
+          title={t("Settings.Title")}
+        >
+          ⚙️
+        </button>
       </div>
     </nav>
   );

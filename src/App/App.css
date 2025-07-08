@@ -1,7 +1,49 @@
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap");
+
 * {
-  font-family: "Heebo", sans-serif; /* Apply Heebo font to the body */
+  font-family: "Heebo", sans-serif;
+  /* Apply Heebo font to the body */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+[data-theme="light"] select,
+[data-theme="light"] button {
+  background-color: white;
+  color: #333;
+  border-color: gray;
+
+}
+
+[data-theme="light"] .group h2 {
+  color: #333;
+}
+
 .main-content {
-  padding-top: 4rem; /* Adjust this value as needed based on the height of your navbar */
+  padding-top: 4rem;
+  /* Adjust this value as needed based on the height of your navbar */
+  transition: all 0.3s ease;
+  margin-top: 70px;
+  /* Account for fixed navbar */
+}
+
+/* Theme-aware adjustments */
+[data-theme="dark"] .main-content {
+  background-color: var(--bg-primary);
+}
+
+[data-theme="light"] .main-content {
+  background-color: var(--bg-primary);
+}
+
+/* Font size adjustments for main content */
+[data-font-size="small"] .main-content {
+  font-size: 0.9rem;
+}
+
+[data-font-size="large"] .main-content {
+  font-size: 1.1rem;
+}
+
+[data-font-size="extra-large"] .main-content {
+  font-size: 1.2rem;
 }

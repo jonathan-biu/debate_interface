@@ -1,0 +1,784 @@
+/* PlacementTable.css */
+
+.placement-table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placement-title {
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.placement-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+.placement-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.placement-table th {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.placement-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.placement-row {
+    transition: background-color 0.2s ease;
+}
+
+.placement-row:hover {
+    background-color: var(--bg-secondary);
+}
+
+.placement-1 {
+    border-left: 4px solid #FFD700;
+    color: black;
+}
+
+.placement-2 {
+    border-left: 4px solid #C0C0C0;
+    color: black;
+}
+
+.placement-3 {
+    border-left: 4px solid #CD7F32;
+    color: black;
+}
+
+.placement-4 {
+    border-left: 4px solid #E5E5E5;
+    color: black;
+}
+
+.placement-cell {
+    width: 100px;
+    text-align: center;
+}
+
+.placement-select {
+    width: 80px;
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.placement-select:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.placement-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+.group-cell {
+    width: 150px;
+}
+
+.group-name {
+    font-weight: bold;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.speakers-cell {
+    width: 250px;
+}
+
+.speakers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.speaker-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    background-color: var(--bg-secondary);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.speaker-role {
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.speaker-name {
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.points-cell {
+    width: 100px;
+}
+
+.points-input {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: bold;
+    transition: border-color 0.2s ease;
+}
+
+.points-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.notes-cell {
+    width: 200px;
+}
+
+.notes-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 50px;
+    transition: border-color 0.2s ease;
+}
+
+.notes-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.notes-textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+.actions-cell {
+    width: 80px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    color: white;
+}
+
+.move-button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.move-button:hover:not(:disabled) {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.move-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.move-up {
+    color: #28a745;
+}
+
+.move-down {
+    color: #dc3545;
+}
+
+.placement-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.placement-summary h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: var(--bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease;
+}
+
+.summary-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.summary-details {
+    flex: 1;
+}
+
+.summary-group {
+    font-weight: bold;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.summary-points {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Summary notes styles */
+.summary-notes {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    padding: 2px 4px;
+    background-color: var(--bg-secondary);
+    border-radius: 3px;
+    border-left: 2px solid var(--accent-color);
+    cursor: help;
+    transition: background-color 0.2s ease;
+}
+
+.summary-notes:hover {
+    background-color: var(--bg-primary);
+}
+
+.placement-table-container.compact .summary-notes {
+    font-size: 10px;
+    padding: 1px 3px;
+}
+
+/* Compact placement table styles */
+.placement-table-container.compact {
+    padding: 10px;
+}
+
+.placement-table-container.compact .placement-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.placement-table-container.compact .placement-table {
+    font-size: 12px;
+}
+
+.placement-table-container.compact .placement-table th,
+.placement-table-container.compact .placement-table td {
+    padding: 6px 4px;
+}
+
+.placement-table-container.compact .placement-select {
+    width: 60px;
+    padding: 4px;
+    font-size: 11px;
+}
+
+.placement-table-container.compact .group-name {
+    font-size: 14px;
+}
+
+.placement-table-container.compact .points-input {
+    width: 60px;
+    padding: 4px;
+    font-size: 11px;
+}
+
+.placement-table-container.compact .move-button {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.placement-table-container.compact .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.placement-table-container.compact .summary-item {
+    padding: 8px;
+}
+
+.placement-table-container.compact .summary-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+}
+
+.placement-table-container.compact .summary-group {
+    font-size: 14px;
+}
+
+.placement-table-container.compact .summary-points {
+    font-size: 12px;
+}
+
+/* Compact notes styles */
+.notes-cell.compact-notes {
+    width: 120px;
+    position: relative;
+}
+
+.compact-notes-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.notes-textarea.compact {
+    width: 100%;
+    height: 28px;
+    padding: 4px;
+    font-size: 11px;
+    resize: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: height 0.2s ease;
+}
+
+.notes-textarea.compact:focus {
+    height: 60px;
+    resize: vertical;
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.notes-indicator {
+    font-size: 12px;
+    cursor: help;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.notes-indicator:hover {
+    opacity: 1;
+}
+
+/* Enhanced compact placement table styles */
+.placement-table-container.compact .notes-cell {
+    min-width: 120px;
+}
+
+.placement-table-container.compact .notes-textarea {
+    font-size: 11px;
+    min-height: 28px;
+}
+
+.placement-table-container.compact .notes-textarea:not(.compact) {
+    height: 45px;
+}
+
+/* Tooltip-like behavior for compact notes */
+.compact-notes-container .notes-textarea:focus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: var(--bg-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for compact notes */
+@media (max-width: 768px) {
+    .notes-cell.compact-notes {
+        width: 100px;
+    }
+
+    .notes-textarea.compact {
+        font-size: 10px;
+        height: 24px;
+    }
+
+    .notes-textarea.compact:focus {
+        height: 50px;
+    }
+
+    .notes-indicator {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .placement-table-container {
+        padding: 10px;
+    }
+
+    .placement-table {
+        font-size: 12px;
+    }
+
+    .placement-table th,
+    .placement-table td {
+        padding: 8px 6px;
+    }
+
+    .speakers-cell {
+        width: 180px;
+    }
+
+    .notes-cell {
+        width: 120px;
+    }
+
+    .notes-textarea {
+        font-size: 12px;
+    }
+}
+
+/* Notes Section Styles */
+.placement-notes-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.placement-notes-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.group-notes-item {
+    background-color: var(--bg-primary);
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.2s ease;
+    display: flex;
+}
+
+
+.group-notes-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.group-notes-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.group-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.group-notes-title {
+    font-weight: bold;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.group-notes-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s ease;
+}
+
+.group-notes-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.group-notes-textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Compact mode adjustments for notes section */
+.placement-table-container.compact .placement-notes-section {
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.placement-table-container.compact .placement-notes-section h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.placement-table-container.compact .notes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.placement-table-container.compact .group-notes-item {
+    padding: 10px;
+}
+
+.placement-table-container.compact .group-badge {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+}
+
+.placement-table-container.compact .group-notes-title {
+    font-size: 14px;
+}
+
+.placement-table-container.compact .group-notes-textarea {
+    font-size: 12px;
+    min-height: 60px;
+    padding: 8px;
+}
+
+/* Responsive design for notes section */
+@media (max-width: 768px) {
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .placement-notes-section {
+        padding: 15px;
+    }
+
+    .group-notes-item {
+        padding: 12px;
+    }
+
+    .group-notes-textarea {
+        font-size: 13px;
+        min-height: 70px;
+    }
+}
+
+/* Dark mode support for notes section */
+[data-theme="dark"] .placement-notes-section {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .group-notes-item {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .group-notes-textarea {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .placement-table {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .placement-select,
+[data-theme="dark"] .points-input,
+[data-theme="dark"] .notes-textarea,
+[data-theme="dark"] .move-button {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+
+}
+
+[data-theme="dark"] .points-input {
+    color: white;
+}
+
+[data-theme="dark"] .speaker-item {
+    background-color: var(--secondary-bg-color);
+}
+
+[data-theme="dark"] .summary-item {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+/* Dark mode support for summary notes */
+[data-theme="dark"] .summary-notes {
+    background-color: var(--bg-secondary);
+    border-left-color: var(--accent-color);
+}
+
+[data-theme="dark"] .summary-notes:hover {
+    background-color: var(--bg-primary);
+}
+
+/* Dark mode support for compact notes */
+[data-theme="dark"] .compact-notes-container .notes-textarea:focus {
+    background: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .notes-indicator {
+    filter: brightness(0.9);
+}
+
+/* Table Notes Preview Styles */
+.table-notes-preview {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 8px;
+    background-color: var(--bg-secondary);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    cursor: help;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.table-notes-preview:hover {
+    background-color: var(--bg-primary);
+}
+
+.placement-table-container.compact .table-notes-preview {
+    font-size: 11px;
+    padding: 4px;
+    min-height: 28px;
+}
+
+.placement-table-container.compact .notes-indicator {
+    font-size: 16px;
+    cursor: help;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 28px;
+}
+
+.placement-table-container.compact .notes-indicator:hover {
+    opacity: 1;
+}
+
+.placement-table-container.compact .compact-notes-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dark mode support for table notes preview */
+[data-theme="dark"] .table-notes-preview {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .table-notes-preview:hover {
+    background-color: var(--bg-primary);
+}

@@ -10,26 +10,42 @@ interface DebateGroupProps {
     rebuttal?: string;
     POI: string;
   }[];
+  includeRebuttal?: boolean;
+  includePOI?: boolean;
 }
 
-const DebateGroup: React.FC<DebateGroupProps> = ({ title, speakers }) => (
+const DebateGroup: React.FC<DebateGroupProps> = ({
+  title,
+  speakers,
+  includeRebuttal = true,
+  includePOI = true,
+}) => (
   <div className="group">
     <h2>{title}</h2>
-    {speakers.map((speaker, index) => (
-      <div key={index}>
-        <h2>{speaker.title}</h2>
-        <h3>{t("Home.speech", { title: speaker.title })}</h3>
-        <p>{formatText(speaker.speech)}</p>
-        {speaker.rebuttal && (
-          <>
-            <h3>{t("Home.rebuttal", { title: speaker.title })}</h3>
-            <p>{formatText(speaker.rebuttal)}</p>
-          </>
-        )}
-        <h3>{t("Home.POI", { title: speaker.title })}</h3>
-        <p>{formatText(speaker.POI)}</p>
-      </div>
-    ))}
+    {speakers.map((speaker, index) => {
+      const speakerKey = `speaker-${index}`;
+      const speakerTitle = speaker.title || t("Home.NoSpeaker");
+
+      return (
+        <div key={speakerKey}>
+          <h2>{speakerTitle}</h2>
+          <h3>{t("Home.speech", { title: speakerTitle })}</h3>
+          <p>{formatText(speaker.speech) || t("Home.no_speech_available")}</p>
+          {speaker.rebuttal && includeRebuttal && (
+            <div key={`${speakerKey}-rebuttal`}>
+              <h3>{t("Home.rebuttal", { title: speakerTitle })}</h3>
+              <p>{formatText(speaker.rebuttal)}</p>
+            </div>
+          )}
+          {includePOI && (
+            <div key={`${speakerKey}-poi`}>
+              <h3>{t("Home.POI", { title: speakerTitle })}</h3>
+              <p>{formatText(speaker.POI) || t("Home.no_speech_available")}</p>
+            </div>
+          )}
+        </div>
+      );
+    })}
   </div>
 );
 
